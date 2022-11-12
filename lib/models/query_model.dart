@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+    // final welcome = welcomeFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+Welcome welcomeFromJson(String str) => Welcome.fromJson(jsonDecode(str));
 
-// String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String welcomeToJson(Welcome data) => json.encode(data.toJson());
 
 class Welcome {
   Welcome({
@@ -38,15 +38,15 @@ class Welcome {
         lat: json["lat"].toDouble(),
       );
 
-  // Map<String, dynamic> toJson() => {
-  //       "city_name": cityName,
-  //       "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  //       "state_code": stateCode,
-  //       "timezone": timezone,
-  //       "lon": lon,
-  //       "country_code": countryCode,
-  //       "lat": lat,
-      // };
+  Map<String, dynamic> toJson() => {
+        "city_name": cityName,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "state_code": stateCode,
+        "timezone": timezone,
+        "lon": lon,
+        "country_code": countryCode,
+        "lat": lat,
+      };
 }
 
 class Datum {
@@ -153,40 +153,40 @@ class Datum {
         appTemp: json["app_temp"].toDouble(),
       );
 
-  // Map<String, dynamic> toJson() => {
-  //       "snow_depth": snowDepth,
-  //       "pop": pop,
-  //       "ozone": ozone,
-  //       "clouds_hi": cloudsHi,
-  //       "clouds_low": cloudsLow,
-  //       "clouds_mid": cloudsMid,
-  //       "wind_cdir": windCdir,
-  //       "rh": rh,
-  //       "pod": podValues.reverse[pod],
-  //       "pres": pres,
-  //       "clouds": clouds,
-  //       "vis": vis,
-  //       "wind_spd": windSpd,
-  //       "wind_cdir_full": windCdirFull,
-  //       "slp": slp,
-  //       "datetime": datetime,
-  //       "ts": ts,
-  //       "timestamp_utc": timestampUtc.toIso8601String(),
-  //       "wind_gust_spd": windGustSpd,
-  //       "timestamp_local": timestampLocal.toIso8601String(),
-  //       "uv": uv,
-  //       "snow": snow,
-  //       "wind_dir": windDir,
-  //       "ghi": ghi,
-  //       "dhi": dhi,
-  //       "precip": precip,
-  //       "dni": dni,
-  //       "weather": weather.toJson(),
-  //       "solar_rad": solarRad,
-  //       "temp": temp,
-  //       "dewpt": dewpt,
-  //       "app_temp": appTemp,
-  //     };
+  Map<String, dynamic> toJson() => {
+        "snow_depth": snowDepth,
+        "pop": pop,
+        "ozone": ozone,
+        "clouds_hi": cloudsHi,
+        "clouds_low": cloudsLow,
+        "clouds_mid": cloudsMid,
+        "wind_cdir": windCdir,
+        "rh": rh,
+        "pod": podValues.reverse[pod],
+        "pres": pres,
+        "clouds": clouds,
+        "vis": vis,
+        "wind_spd": windSpd,
+        "wind_cdir_full": windCdirFull,
+        "slp": slp,
+        "datetime": datetime,
+        "ts": ts,
+        "timestamp_utc": timestampUtc.toIso8601String(),
+        "wind_gust_spd": windGustSpd,
+        "timestamp_local": timestampLocal.toIso8601String(),
+        "uv": uv,
+        "snow": snow,
+        "wind_dir": windDir,
+        "ghi": ghi,
+        "dhi": dhi,
+        "precip": precip,
+        "dni": dni,
+        "weather": weather.toJson(),
+        "solar_rad": solarRad,
+        "temp": temp,
+        "dewpt": dewpt,
+        "app_temp": appTemp,
+      };
 }
 
 enum Pod { D, N }
@@ -210,11 +210,11 @@ class Weather {
         code: json["code"],
       );
 
-  // Map<String, dynamic> toJson() => {
-  //       "icon": icon,
-  //       "description": descriptionValues.reverse[description],
-  //       "code": code,
-  //     };
+  Map<String, dynamic> toJson() => {
+        "icon": icon,
+        "description": descriptionValues.reverse[description],
+        "code": code,
+      };
 }
 
 enum Description {
