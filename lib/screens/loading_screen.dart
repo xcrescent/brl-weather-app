@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:weather_app/controller/global_controller.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -11,30 +10,27 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final GlobalController globalController =
+      Get.put(GlobalController(), permanent: true);
+
   @override
   void initState() {
     super.initState();
   }
 
-  void getLocation() async {
-    // Position position = await Geolocator.getCurrentPosition(
-    //     desiredAccuracy: LocationAccuracy.low);
-    // log(position.latitude.toString()+position.longitude.toString());
-    setState(() {
-      Navigator.of(context).pushNamed('/weather');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            //Get the current location
-            getLocation();
-          },
-          child: const Text('Get Location'),
+      body: SafeArea(
+        child: Center(
+          child: Obx(() => globalController.checkLoading().isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ElevatedButton(
+                  onPressed: (() =>
+                      Navigator.pushReplacementNamed(context, '/weather')),
+                  child: const Text("Next"))),
         ),
       ),
     );

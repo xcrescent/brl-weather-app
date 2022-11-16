@@ -1,6 +1,10 @@
+// https://youtu.be/ZSVnIphlGKI
+
 import 'package:flutter/material.dart';
 import 'package:weather_app/screens/loading_screen.dart';
+import 'package:weather_app/screens/today_screen.dart';
 import 'package:weather_app/screens/weather_now.dart';
+import 'package:weather_app/screens/week_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +20,15 @@ class MyApp extends StatelessWidget {
       title: 'Weather',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white.withOpacity(0.95)
       ),
-      home: const WeatherHome(),
+      home: const LoadingScreen(),
       routes: {
         "/home": (context) => const HomePage(),
         "/loading": (context) => const LoadingScreen(),
         "/weather" :(context) => const WeatherHome(),
+        "/today": (context) => const TodayScreen(),
+        "/this_week": (context) => const WeekScreen(),
       },
     );
   }
@@ -39,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather"),
+        title: const Text("Sky Sense"),
       ),
       body: Center(
         child: Column(
