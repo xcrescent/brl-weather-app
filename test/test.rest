@@ -1,0 +1,1 @@
+GET https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=35&appid=8476478bea8d6ea40c4a303496f86447

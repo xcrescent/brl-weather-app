@@ -20,12 +20,9 @@ class WeatherHome extends StatefulWidget {
 
 class _WeatherHomeState extends State<WeatherHome> {
   int pageIndex = 0;
-  bool isLoading = true;
+  // bool isLoading = true;
   final Color _color3 = HexColor("#73B3FF");
-  final GlobalController globalController =
-      Get.put(GlobalController(), permanent: true);
-  late Future<Welcome> futurestock;
-  String date = DateTime.now().toString();
+  
   static const List<Widget> pages = [
     HomeFragment(),
     HomeFragment(),
@@ -37,13 +34,7 @@ class _WeatherHomeState extends State<WeatherHome> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    futurestock = HttpController().fetchWeather(
-        globalController.getLatitude().value,
-        globalController.getLongitude().value);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +58,8 @@ class _WeatherHomeState extends State<WeatherHome> {
                   'assets/icons/popup-down.svg',
                   color: Colors.black,
                 ),
-                color: Color(0xff453D99),
-                shape: OutlineInputBorder(
+                color: const Color(0xff453D99),
+                shape: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.transparent,
                     width: 2,
@@ -110,53 +101,7 @@ class _WeatherHomeState extends State<WeatherHome> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              FutureBuilder<Welcome>(
-                future: futurestock,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                      child: Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // const HeaderWidget(),
-                              Text(
-                                snapshot.data!.cityName,
-                                style: const TextStyle(
-                                    fontSize: 26, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                "${snapshot.data!.data[0].temp} °C",
-                                style: const TextStyle(
-                                    fontSize: 63, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                snapshot.data!.data[0].weather.description
-                                    .toString(),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              pages.elementAt(pageIndex)
-                            ]),
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-
-                  // By default, show a loading spinner.
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Center(child: CircularProgressIndicator())
-                      ]);
-                },
-              ),
-            ],
-          ),
+          child: pages.elementAt(pageIndex)
         ),
       ),
       bottomNavigationBar:

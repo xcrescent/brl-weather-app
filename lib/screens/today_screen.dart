@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/controller/http_controller.dart';
-import 'package:weather_app/models/query_model.dart';
+import 'package:weather_app/models/openweathermodel.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 import 'package:weather_app/widgets/list_widget.dart';
 
@@ -21,7 +21,7 @@ class _TodayScreenState extends State<TodayScreen> {
   @override
   void initState() {
     super.initState();
-    futurestock = HttpController().fetchWeather(
+    futurestock = HttpController().fetchWeatherForecast(
       globalController.getLatitude().value,
       globalController.getLongitude().value,
     );
@@ -71,7 +71,7 @@ class _TodayScreenState extends State<TodayScreen> {
                 child: Column(
                   children: [
                     const Text(
-                      "This week",
+                      "Today",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w500,
@@ -91,7 +91,7 @@ class _TodayScreenState extends State<TodayScreen> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        hourlyList(futurestock),
+                        hourlyList(futurestock,"current"),
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: Container(
@@ -120,7 +120,7 @@ class _TodayScreenState extends State<TodayScreen> {
                       ],
                     )
                   ],
-                  
+
                 ),
               ),
             ),

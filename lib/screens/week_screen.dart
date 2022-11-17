@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/controller/http_controller.dart';
-import 'package:weather_app/models/query_model.dart';
+import 'package:weather_app/models/openweathermodel.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 import 'package:weather_app/widgets/bottom_nav.dart';
 import 'package:weather_app/widgets/list_widget.dart';
@@ -24,7 +24,7 @@ class _WeekScreenState extends State<WeekScreen> {
   @override
     void initState() {
       super.initState();
-      futurestock = HttpController().fetchWeather(
+      futurestock = HttpController().fetchWeatherForecast(
         globalController.getLatitude().value,
         globalController.getLongitude().value,
       );
@@ -46,7 +46,7 @@ class _WeekScreenState extends State<WeekScreen> {
           child: Container(
             width: double.infinity,
             alignment: Alignment.bottomCenter,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height -210,
             decoration: BoxDecoration(
               gradient: RadialGradient(colors: [
                 HexColor("#82BAFB"),
@@ -95,7 +95,7 @@ class _WeekScreenState extends State<WeekScreen> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        hourlyList(futurestock),
+                        hourlyList(futurestock, "week"),
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: Container(
