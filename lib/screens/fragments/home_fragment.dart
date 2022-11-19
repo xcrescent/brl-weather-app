@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/controller/http_controller.dart';

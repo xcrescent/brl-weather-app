@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:weather_app/controller/global_controller.dart';
-import 'package:weather_app/controller/http_controller.dart';
-import 'package:weather_app/models/query_model.dart';
+import 'package:weather_app/screens/fragments/favourite_fragment.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 import 'package:weather_app/widgets/bottom_nav.dart';
-import 'package:weather_app/widgets/header_widget.dart';
-import 'package:weather_app/utils/color.dart';
-
 import 'fragments/home_fragment.dart';
 
 class WeatherHome extends StatefulWidget {
@@ -19,22 +13,20 @@ class WeatherHome extends StatefulWidget {
 }
 
 class _WeatherHomeState extends State<WeatherHome> {
-  int pageIndex = 0;
+  int pageIndex = 1;
   // bool isLoading = true;
   final Color _color3 = HexColor("#73B3FF");
   
   static const List<Widget> pages = [
     HomeFragment(),
     HomeFragment(),
-    HomeFragment(),
+    FavouriteFragment(),
   ];
   void stateRefresh(index) {
     setState(() {
       pageIndex = index;
     });
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

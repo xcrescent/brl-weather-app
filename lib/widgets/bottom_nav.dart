@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:swipe/swipe.dart';
+import 'package:weather_app/screens/fragments/favourite_fragment.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 
 import '../screens/fragments/home_fragment.dart';
 
 Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
-
   // ScrollController scrollController = ScrollController();
   return Swipe(
     // key: const Key("dis"),
     // controller: scrollController,
     // : ((direction) {
-      // if (direction == DismissDirection.up) {
-        // Navigator.pushNamed(context, '/today');
-      // }
+    // if (direction == DismissDirection.up) {
+    // Navigator.pushNamed(context, '/today');
+    // }
     // }),
     onSwipeUp: () {
       Navigator.pushNamed(context, '/today');
     },
     child: Container(
-      height: 105,
+      height: 150,
       decoration: BoxDecoration(
         // gradient: LinearGradient(
         //   colors: [HexColor("#D8EAFF"), HexColor("#82BAFB")],
@@ -30,7 +30,7 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
         //   tileMode: TileMode.repeated,
         // ),
         color: HexColor("#73B3FF"),
-        border: Border(),
+
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(50), topRight: Radius.circular(50)),
         boxShadow: <BoxShadow>[
@@ -47,6 +47,9 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 5,
+          ),
           Container(
             width: 30,
             height: 3,
@@ -54,6 +57,9 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
               borderRadius: BorderRadius.all(Radius.circular(50)),
               color: Colors.white,
             ),
+          ),
+          const SizedBox(
+            height: 3,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 18.0),
@@ -64,14 +70,33 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
               children: [
                 InkWell(
                   onTap: (() => Navigator.pushNamed(context, '/today')),
-                  child: Text("Today"),
+                  child: Text(
+                    "Today",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 InkWell(
                   onTap: (() => Navigator.pushNamed(context, '/this_week')),
-                  child: Text("This week"),
+                  child: Text(
+                    "This Week",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           BottomNavigationBar(
             currentIndex: pageIndex,
@@ -113,12 +138,12 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
   );
 }
 
-Widget createSimpleBottomNavigationBar(BuildContext context) {
-  int pageIndex = 0;
+Widget createSimpleBottomNavigationBar(BuildContext context, stateRefresh) {
+  int pageIndex = 1;
   const List<Widget> pages = [
     HomeFragment(),
     HomeFragment(),
-    HomeFragment(),
+    FavouriteFragment(),
   ];
 
   return Container(
