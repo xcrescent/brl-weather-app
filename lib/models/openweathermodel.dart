@@ -581,7 +581,6 @@ class WindCurrent {
 
 
 
-
 WelcomeDaily welcomeDailyFromJson(String str) => WelcomeDaily.fromJson(json.decode(str));
 
 String welcomeDailyToJson(WelcomeDaily data) => json.encode(data.toJson());

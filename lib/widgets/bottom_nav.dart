@@ -2,22 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:swipe/swipe.dart';
 import 'package:weather_app/screens/fragments/favourite_fragment.dart';
+import 'package:weather_app/screens/today_screen.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 
 import '../screens/fragments/home_fragment.dart';
 
-Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
+Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffoldKey) {
   // ScrollController scrollController = ScrollController();
   return Swipe(
-    // key: const Key("dis"),
-    // controller: scrollController,
-    // : ((direction) {
-    // if (direction == DismissDirection.up) {
-    // Navigator.pushNamed(context, '/today');
-    // }
-    // }),
+    //   // key: const Key("dis"),
+    //   // controller: scrollController,
+    //   // : ((direction) {
+    //   // if (direction == DismissDirection.up) {
+    //   // Navigator.pushNamed(context, '/today');
+    //   // }
+    //   // }),
     onSwipeUp: () {
-      Navigator.pushNamed(context, '/today');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              const TodayScreen(listSwitch: true),
+        ),
+      );
     },
     child: Container(
       height: 150,
@@ -45,7 +52,7 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(
             height: 5,
@@ -68,27 +75,62 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  onTap: (() => Navigator.pushNamed(context, '/today')),
-                  child: Text(
-                    "Today",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.white,
+                //https://medium.com/ivymobility-developers/swipe-detector-in-flutter-2c8f040669bf
+                GestureDetector(
+                  onTapUp: (details) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const TodayScreen(listSwitch: true),
+                      ),
+                    );
+                  },
+                  child: InkWell(
+                    onTap: (() => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const TodayScreen(listSwitch: true),
+                          ),
+                        )),
+                    child: Text(
+                      "Today",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: (() => Navigator.pushNamed(context, '/this_week')),
-                  child: Text(
-                    "This Week",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.white,
+                GestureDetector(
+                  onTapUp: (details) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const TodayScreen(listSwitch: true),
+                      ),
+                    );
+                  },
+                  child: InkWell(
+                    onTap: (() => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const TodayScreen(listSwitch: false),
+                          ),
+                        )),
+                    child: Text(
+                      "This Week",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -96,12 +138,15 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 26,
           ),
           BottomNavigationBar(
             currentIndex: pageIndex,
             onTap: (index) {
               // pageIndex = index;
+              if (index == 0) {
+                scaffoldKey.currentState?.openDrawer();
+              }
               func(index);
             },
             showUnselectedLabels: false,
@@ -109,26 +154,28 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func) {
             type: BottomNavigationBarType.fixed,
             elevation: 0,
             unselectedItemColor: Colors.white,
-            selectedLabelStyle: TextStyle(color: Colors.white),
-            selectedIconTheme: IconThemeData(color: Colors.white),
+            fixedColor: Colors.white,
+            unselectedLabelStyle: const TextStyle(color: Colors.white),
+            selectedLabelStyle: const TextStyle(
+              color: Colors.white,
+            ),
+            selectedIconTheme: const IconThemeData(color: Colors.white),
             items: [
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/menu.svg',
-                  color: Colors.white,
-                ),
-                label: "Drawer",
-              ),
+                  icon: SvgPicture.asset(
+                    'assets/icons/menu.svg',
+                    color: Colors.white,
+                    height: 18,
+                  ),
+                  label: "Drawer",
+                  backgroundColor: Colors.white),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/favourite.svg',
-                  color: Colors.white,
-                ),
-                label: "Favourite",
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: "Search",
               ),
             ],
           ),
@@ -175,12 +222,9 @@ Widget createSimpleBottomNavigationBar(BuildContext context, stateRefresh) {
           icon: Icon(Icons.home),
           label: "Home",
         ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/icons/favourite.svg',
-            color: Colors.white,
-          ),
-          label: "School",
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: "Search",
         ),
       ],
     ),

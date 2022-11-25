@@ -309,13 +309,13 @@ class DailyDetails extends StatelessWidget {
       // decoration: BoxDecoration(
       //   border: BoxBorder.lerp(a, b, t)
       // ),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(7),
       width: 69,
       child: Center(
         child: Column(
           children: [
             const SizedBox(
-              height: 10,
+              height: 7,
             ),
             Text(
               getDay(date),
@@ -327,11 +327,11 @@ class DailyDetails extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 8,
+              height: 7,
             ),
             Image.asset('assets/weather/$weatherIcon.png', scale: 4),
             const SizedBox(
-              height: 8,
+              height: 7,
             ),
             Text(
               "${humidity.toString()}%",
@@ -343,7 +343,7 @@ class DailyDetails extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 8,
+              height: 7,
             ),
             Text(
               "${tempMin.toString()}~${tempMax.toString()} °C",

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:weather_app/controller/http_controller.dart';
+import 'package:weather_app/models/citiesmodel.dart';
+import 'package:weather_app/screens/city_weather.dart';
 //  Google Maps Platform
 //  API KEY
 //  AIzaSyD3SoLVF_HMOJOSc8drpWs_iXDJYX_WjYU
@@ -12,10 +16,16 @@ class FavouriteFragment extends StatefulWidget {
 
 class _FavouriteFragmentState extends State<FavouriteFragment> {
   final _searchController = TextEditingController();
+  late Future<Cities> futureCity;
+  String cities = '';
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_printLatestValue);
+
+    futureCity = HttpController().getCityFunc(cities);
+
+    // citiesData().fetchData();
   }
 
   @override
@@ -33,7 +43,6 @@ class _FavouriteFragmentState extends State<FavouriteFragment> {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextFormField(
-              obscureText: true,
               // cursorColor: buttonColor,
               decoration: const InputDecoration(
                 filled: true,
@@ -53,6 +62,45 @@ class _FavouriteFragmentState extends State<FavouriteFragment> {
               controller: _searchController,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder(
+                future: futureCity,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    int x=0;
+                    if(snapshot.data!.city.length>30) x= 30; else x= snapshot.data!.city.length;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: x,
+                      controller: ScrollController(),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CityWeather(
+                                      city: snapshot.data!.city[index])),
+                            );
+                          },
+                          child: ListTile(
+                            title: Text(snapshot.data!.city[index]),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+
+                  // By default, show a loading spinner.
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [CircularProgressIndicator()]);
+                }),
+          )
           // SingleChildScrollView(
           //   child: GridView.count(
           //     // Create a grid with 2 columns. If you change the scrollDirection to
@@ -74,5 +122,17 @@ class _FavouriteFragmentState extends State<FavouriteFragment> {
     );
   }
 
-  void _printLatestValue() {}
+  void _printLatestValue() {
+    var t = _searchController.text.toLowerCase();
+    // futureCity = cities.where((a) => a.toString().contains(t)).toList();
+
+    if (t.length > 1) {
+      setState(() {
+        cities = t;
+        futureCity = HttpController().getCityFunc(cities);
+      });
+    }
+  }
+
+  // List cities = [];
 }
