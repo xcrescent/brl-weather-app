@@ -7,8 +7,13 @@ import 'package:weather_app/utils/hexcolor.dart';
 
 import '../screens/fragments/home_fragment.dart';
 
-Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffoldKey) {
+Widget createBottomNavigationBar(
+    pageIndex, BuildContext context, func, scaffoldKey) {
   // ScrollController scrollController = ScrollController();
+  // final double _initFabHeight = 120.0;
+  // double _fabHeight = 0;
+  // double _panelHeightOpen = 0;
+  // double _panelHeightClosed = 95.0;
   return Swipe(
     //   // key: const Key("dis"),
     //   // controller: scrollController,
@@ -17,6 +22,18 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffold
     //   // Navigator.pushNamed(context, '/today');
     //   // }
     //   // }),
+    // maxHeight: _panelHeightOpen,
+    // minHeight: _panelHeightClosed,
+    // panelBuilder: (sc) => _panel(sc, context),
+    // onPanelSlide: (double pos) {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) =>
+    //           const TodayScreen(listSwitch: true),
+    //     ),
+    //   );
+    // },
     onSwipeUp: () {
       Navigator.push(
         context,
@@ -94,7 +111,7 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffold
                                 const TodayScreen(listSwitch: true),
                           ),
                         )),
-                    child: Text(
+                    child: const Text(
                       "Today",
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -123,7 +140,7 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffold
                                 const TodayScreen(listSwitch: false),
                           ),
                         )),
-                    child: Text(
+                    child: const Text(
                       "This Week",
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -144,9 +161,9 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffold
             currentIndex: pageIndex,
             onTap: (index) {
               // pageIndex = index;
-              if (index == 0) {
-                scaffoldKey.currentState?.openDrawer();
-              }
+              // if (index == 0) {
+              //   scaffoldKey.currentState?.openDrawer();
+              // }
               func(index);
             },
             showUnselectedLabels: false,
@@ -160,20 +177,20 @@ Widget createBottomNavigationBar(pageIndex, BuildContext context, func, scaffold
               color: Colors.white,
             ),
             selectedIconTheme: const IconThemeData(color: Colors.white),
-            items: [
+            items: const [
+              // BottomNavigationBarItem(
+              //     icon: SvgPicture.asset(
+              //       'assets/icons/menu.svg',
+              //       color: Colors.white,
+              //       height: 18,
+              //     ),
+              //     label: "Drawer",
+              //     backgroundColor: Colors.white),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    'assets/icons/menu.svg',
-                    color: Colors.white,
-                    height: 18,
-                  ),
-                  label: "Drawer",
-                  backgroundColor: Colors.white),
-              const BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",
               ),
-              const BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: "Search",
               ),
@@ -225,6 +242,21 @@ Widget createSimpleBottomNavigationBar(BuildContext context, stateRefresh) {
         const BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: "Search",
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _panel(ScrollController sc, context) {
+  return MediaQuery.removePadding(
+    context: context,
+    removeTop: true,
+    child: ListView(
+      controller: sc,
+      children: const <Widget>[
+        TodayScreen(
+          listSwitch: true,
         ),
       ],
     ),

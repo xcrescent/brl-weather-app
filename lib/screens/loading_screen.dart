@@ -18,10 +18,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Get.put(GlobalController(), permanent: true);
 
   void timerNext() {
-    Timer(const Duration(milliseconds: 3600), () {
+    Timer(const Duration(milliseconds: 1600), () {
       if (globalController.checkLoading().isFalse) {
         Navigator.pushReplacementNamed(context, '/weather');
-      } else if (globalController.checkLoading().isFalse){
+      } else if (globalController.checkLoading().isTrue) {
         timerNext();
       }
     });
@@ -39,11 +39,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
           MaterialPageRoute(builder: (context) => const WeatherHome()),
         );
       }
-      setState(() {
-        timerNext();
-      });
+      timerNext();
     });
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -70,7 +69,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                           ),
                           speed: const Duration(milliseconds: 400)),
                     ],
-                    totalRepeatCount: 1,
+                    totalRepeatCount: 2,
                   ),
           ),
         ),

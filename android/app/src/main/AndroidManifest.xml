@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
    <application
-        android:label="Weather"
+        android:label="Sky Sense"
         android:name="${applicationName}"
         android:icon="@drawable/app_icon_1">
         <activity

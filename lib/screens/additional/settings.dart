@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+enum SingingCharacter { celsius, fahrenheit }
 
+SingingCharacter? tempUnit = SingingCharacter.celsius;
+
+class SettingsScreen extends StatefulWidget {
+  SettingsScreen({super.key});
+  // dynamic refresh;
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,18 +37,76 @@ class SettingsScreen extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                      title: const Text("Temperature Unit"),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      backgroundColor: const Color(0xff453D99),
+                      title: const Text(
+                        "Temperature Unit",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                       content: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                                'Please turn on your internet connection'),
-                            const Text(
-                                'Please turn on your internet connection'),
-                          ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 140,
+                          width: 80,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RadioListTile<SingingCharacter>(
+                                    value: SingingCharacter.celsius,
+                                    groupValue: tempUnit,
+                                    activeColor: Colors.white,
+                                    
+                                    // tileColor: Colors.white,
+                                    title: Text(
+                                      'Celsius (°C)',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    onChanged: (SingingCharacter? value) {
+                                      Navigator.of(context).pop();
+                                      // widget.refresh();
+                                      setState(() {
+                                        tempUnit = value;
+                                      });
+                                    }),
+                                RadioListTile<SingingCharacter>(
+                                    value: SingingCharacter.fahrenheit,
+                                    activeColor: Colors.white,
+
+                                    // tileColor: Colors.white,
+                                    groupValue: tempUnit,
+                                    title: Text(
+                                      'Fahrenheit (°F)',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    onChanged: (SingingCharacter? value) {
+                                      Navigator.of(context).pop();
+                                      setState(() {
+                                        tempUnit = value;
+                                      });
+                                    }),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),

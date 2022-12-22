@@ -5,6 +5,7 @@ import 'package:swipe/swipe.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/controller/http_controller.dart';
 import 'package:weather_app/models/openweathermodel.dart';
+import 'package:weather_app/screens/additional/settings.dart';
 import 'package:weather_app/utils/hexcolor.dart';
 import 'package:weather_app/widgets/list_widget.dart';
 
@@ -316,8 +317,23 @@ class _TodayScreenState extends State<TodayScreen> {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  Text(
+                                                                  tempUnit == SingingCharacter.celsius
+                                                                  ?Text(
                                                                     '${snapshot.data!.list[0].main.feelsLike.toInt()}°C',
+                                                                    style:
+                                                                        const TextStyle(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize:
+                                                                          15,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ):Text(
+                                                                    '${snapshot.data!.list[0].main.feelsLike.toInt()}°F',
                                                                     style:
                                                                         const TextStyle(
                                                                       fontFamily:
@@ -474,7 +490,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                                           ],
                                                         ),
                                                         const SizedBox(
-                                                          width: 44,
+                                                          width: 40,
                                                         ),
                                                         Row(
                                                           children: [
@@ -502,7 +518,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                                                           FontWeight
                                                                               .w500,
                                                                       fontSize:
-                                                                          15,
+                                                                          14,
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -517,7 +533,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                                                           FontWeight
                                                                               .w100,
                                                                       fontSize:
-                                                                          15,
+                                                                          14,
                                                                       color: Colors
                                                                           .white,
                                                                     ),

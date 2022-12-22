@@ -16,7 +16,7 @@ class _SplashState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-      Timer(const Duration(milliseconds: 5400), () {
+      Timer(const Duration(milliseconds: 5500), () {
         Navigator.pushReplacement(
           context,
           //page route after splash screen

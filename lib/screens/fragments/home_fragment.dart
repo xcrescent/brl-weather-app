@@ -7,6 +7,8 @@ import 'package:weather_app/controller/http_controller.dart';
 import 'package:weather_app/models/openweathermodel.dart';
 import 'dart:io';
 
+import 'package:weather_app/screens/additional/settings.dart';
+
 class HomeFragment extends StatefulWidget {
   const HomeFragment({super.key});
 
@@ -71,8 +73,12 @@ class _HomeFragmentState extends State<HomeFragment> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(
+                              tempUnit==SingingCharacter.celsius? Text(
                                 "${snapshot.data!.main.temp} °C",
+                                style: const TextStyle(
+                                    fontSize: 63, fontWeight: FontWeight.w600),
+                              ):Text(
+                                "${snapshot.data!.main.temp} °F",
                                 style: const TextStyle(
                                     fontSize: 63, fontWeight: FontWeight.w600),
                               ),
